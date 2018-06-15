@@ -8,7 +8,7 @@ int main()
 	int t;
 	cin>>t;
 
-	for (int j = 0;j<t;t++)
+	for (int j = 0;j<t;j++)
 	{
 		int p;
 		cin>>p;
@@ -18,11 +18,11 @@ int main()
 		{
 
 			int pwr;
-			for (int i = 0;i<11;i++)
+			for (int i = 11;i>=0;i--)
 			{
-				if (int(pow(2,i) > p))
+				if (int(pow(2,i) <= p))
 				{
-					pwr = i-1;
+					pwr = i;
 					break;
 				}
 			}
