@@ -29,7 +29,7 @@ int main ()
 
 		int count = 0;
 		
-		for (int i = 0;i<strlen(n);i++)
+		for (int i = 0,len = strlen(n);i<len;i++)
 		{
 			if ( n[i] == 52)
 			{

@@ -32,6 +32,7 @@ void fact(int n)
 	{
 		cout<<ans[i];
 	}
+	cout<<endl;
 }
 
 int mult(int x, int a[], int size)

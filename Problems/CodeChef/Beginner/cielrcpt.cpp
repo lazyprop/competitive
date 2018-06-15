@@ -30,7 +30,7 @@ int main()
 			count++;
 		}
 
-		cout<<count;
+		cout<<count<<endl;
 	}
 }
 
