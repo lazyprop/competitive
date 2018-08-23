@@ -2,57 +2,41 @@
 #include<math.h>
 using namespace std;
 
+int rev(int n)
+{
+	int len=0;
+	int temp = n;
+
+	while (temp)
+	{
+		temp/=10;
+		len++;
+	}
+	len--;
+	int ans = 0,count=0;
+
+	while (n)
+	{
+		ans+= n%10 * pow(10,len-count);
+		n/=10;
+		count++;
+	}
+	return ans;
+}
+
 int main()
 {
-	int n;
-	cin>>n;
+	int t;
+	cin>>t;
 
-	for (int i = 0;i < n;i++)
+	for (int x = 0;x<t;x++)
 	{
 		int a,b;
-		int aRev=0,bRev=0;
 		cin>>a>>b;
-		int aDig[1000000], bDig[1000000];
-		
 
-		int countA = 0, countB=0;
-		while(a>0)
-		{
-			aDig[countA] = a%10;
-			a/=10;
-			countA++;
-		}
-
-		while (b>0)
-		{
-			bDig[countB] = b%10;
-			b/=10;
-			countB++;
-		}
-		
-		for (int i = countA ;i>=0;i--)
-		{
-			aRev+= aDig[countA - i ] * pow(10,i) ;
-		}
-
-		for (int i = countB;i>=0;i--)
-		{
-			bRev+= bDig[countB- i] * pow(10,  i) ;
-		}
-		aRev/=10; bRev/=10;
-		int sum = aRev + bRev;
-		
-		while (sum>0)
-		{
-			if (sum%10 != 0)
-			{
-				cout<<sum%10;
-			}
-			sum/=10;
-		}
-
-		//cout<<endl;
+		cout<<rev( rev(a) + rev(b) )<<endl;
 	}
 }
 
-			
+	
+
