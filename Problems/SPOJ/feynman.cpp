@@ -5,15 +5,17 @@ using namespace std;
 
 int main()
 {
-	int n
+	int n;
 	cin>>n;
-
-	int ans = 0;
-	for (int i=1;i<=n;i++)
+	while (n!=0)
 	{
-		print(n*(n+1)*(2*n+1)/6);	
-	}
-	cout<<ans<<endl;
+		int ans=0;
+		for(int i = 1;i<=n;i++)
+		{
+			ans+=pow(i,2);
+		}
+		cout<<ans<<endl;
+		cin>>n;
 	}
 }
 
