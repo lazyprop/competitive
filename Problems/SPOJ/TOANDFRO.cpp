@@ -32,20 +32,30 @@ int main()
 		char arr [n][l/n];
 
 		int flag=0;
-		for (int i=0,j=0;i<l;i++)
+		for (int i=0;i<n;i++)
 		{
-			cout<<s[j];
-			if (flag == 0)
+			int j = i;
+			while (j<l)
 			{
-				j = (j + 2*n - 1 - i) %l;
-				flag = 1;
-			}
-			else
-			{
-				j= (j+1 - i)%l;
-				flag = 0;
+			
+				cout<<j<<endl;
+
+				if (flag==0)
+				{
+					cout<<2*(n-i)-1<<"  ";
+
+					flag = 1;
+				}
+				else
+				{
+				
+					j+=2*i  + 1;
+					//cout<<endl<<j<<endl;
+					flag=0;
+				}
 			}
 		}
+		
 
 
 		cout<<endl;
