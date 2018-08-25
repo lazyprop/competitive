@@ -1,6 +1,7 @@
 // Matched Brackets
 
 #include<iostream>
+#include<vector>
 using namespace std;
 
 int main()
@@ -41,7 +42,7 @@ int main()
 	cout<<md<<" "<<index<<" ";
 
 	// Max Length
-	/*
+	
 	vector<int> a;
 	vector<int> b;
 	vector<int> c;
@@ -51,7 +52,7 @@ int main()
 	{
 		if (arr[i] == 1)
 		{
-			a.push_bacK(i+1);
+			a.push_back(i+1);
 		}
 		else
 		{
@@ -77,12 +78,11 @@ int main()
 	{
 		if (c[i] == max)
 		{
-			cout<<c[i]<<" "<<db[i];
+			cout<<c[i] + 1<<" "<<db[i]- 1;
 			break;
 		}
 	}
-	*/
-	cout<<1<<" "<<2;
+	cout<<endl;
 
 }
 

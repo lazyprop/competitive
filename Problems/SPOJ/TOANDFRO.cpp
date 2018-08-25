@@ -31,26 +31,26 @@ int main()
 		int l = strlen(s);
 		char arr [n][l/n];
 
-		int flag=0;
+		
 		for (int i=0;i<n;i++)
 		{
 			int j = i;
+			int flag=0;
 			while (j<l)
 			{
 			
-				cout<<j<<endl;
+				cout<<s[j];
 
 				if (flag==0)
 				{
-					cout<<2*(n-i)-1<<"  ";
+					j+=2*(n-i) - 1;
 
 					flag = 1;
 				}
 				else
 				{
 				
-					j+=2*i  + 1;
-					//cout<<endl<<j<<endl;
+					j+=2*i + 1;
 					flag=0;
 				}
 			}
