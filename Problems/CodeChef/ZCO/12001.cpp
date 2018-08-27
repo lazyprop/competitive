@@ -43,7 +43,7 @@ int main()
 
 	// Max Length
 	
-	vector<int> a;
+	vector<vector<int> int> a;
 	vector<int> b;
 	vector<int> c;
 	vector<int> db;
@@ -52,35 +52,23 @@ int main()
 	{
 		if (arr[i] == 1)
 		{
-			a.push_back(i+1);
+			a.push_back(i);
 		}
 		else
 		{
-			b.push_back(i+1);
+			b.push_back(i - a[a.size()- 1 ]);
 		}
-	}
-	int max = 0;
-	for (int i = 0;i<a.size();i++)
-	{
-		c.push_back(b[i] - a[i] + 2);
-		db.push_back(a[i]);
-
-		if (b[i] - a[i] + 2> max)
-		{
-			max = b[i] - a[i] +2 ;
-		}
-
 	}
 	
-	int len = 0;
-	index = 0;
-	for (int i = 0;i<c.size();i++)
+	cout<<endl;
+	for (int i = 0;i<a.size();i++)
 	{
-		if (c[i] == max)
-		{
-			cout<<c[i] + 1<<" "<<db[i]- 1;
-			break;
-		}
+		cout<<a[i]<<" ";
+	}
+	cout<<endl;
+	for (int i = 0;i<b.size();i++)
+	{
+		cout<<b[i]<<" ";
 	}
 	cout<<endl;
 
