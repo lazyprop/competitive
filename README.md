@@ -1,4 +1,2 @@
-#Cool People - 
-- thehermit
-
+My adventures with competitive programming.
 
