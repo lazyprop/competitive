@@ -1,4 +1,5 @@
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 int main()
@@ -10,20 +11,11 @@ int main()
 	{
 		cin>>a[i];
 	}
+	sort(a,a+n);
 
-	for (int i = 0;i<n-1;i++)
+	for (int i = 0;i<n;i++)
 	{
-		for (int j=n;j>i+1;j--)
-		{
-			if (a[i] > a[j])
-			{
-				ans+= a[i] - a[j];
-			}
-			else
-			{
-				ans+= a[j] - a[i];
-			}
-		}
+		ans += (a[i] * i) - (a[i]*(n-i-1));
 	}
 	cout<<ans<<endl;
 }
