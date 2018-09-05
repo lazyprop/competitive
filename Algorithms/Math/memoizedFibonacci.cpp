@@ -1,43 +1,45 @@
 #include<iostream>
-#include<map>
 using namespace std;
 
-int fib(int n, map<int,int> memo)
+int fib(int n, int memo[])
 {
 	int f;
-	if (memo[n])
+	if (n <=2)
 	{
-		f= memo[n];
+		f = 1;
 	}
+
 	else
 	{
-		if (n<=2)
+		if (memo[n] !=0)
 		{
-			f= 1;
+			f = memo[n];
 		}
 		else
 		{
-			f= fib(n-1,memo) + fib(n-2,memo);
+
+			f =  fib(n-1,memo) + fib(n-2,memo);
+			memo[n] = f;
 		}
 	}
-	memo[n] = f;
 	return f;
 
 }
 
 int main()
 {
-	map <int,int> memo;
-	int n;
-	cin>>n;
-	
-	cout<<fib(n,memo)<<endl;
-	for (int i = 0;i<memo.size();i++)
+	int n; cin>>n;
+	int memo[n];
+	for (int i =0;i<n;i++)
 	{
-		cout<<memo[i]<<" ";
+		memo[i] = 0;
+		cout<<memo[i]<<endl; // idk what the fuck is happening. if i remove this line the program only prints one.
 	}
-	cout<<endl;
 
+	cout<<fib(n,memo)<<endl;
 }
+
+
+
 
 
