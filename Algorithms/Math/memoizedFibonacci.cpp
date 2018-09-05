@@ -1,9 +1,9 @@
 #include<iostream>
 using namespace std;
 
-int fib(int n, int memo[])
+unsigned long long fib(int n, unsigned long long memo[])
 {
-	int f;
+	unsigned long long f;
 	if (n <=2)
 	{
 		f = 1;
@@ -29,11 +29,11 @@ int fib(int n, int memo[])
 int main()
 {
 	int n; cin>>n;
-	int memo[n];
+	unsigned long long memo[n];
 	for (int i =0;i<n;i++)
 	{
 		memo[i] = 0;
-		cout<<memo[i]<<endl; // idk what the fuck is happening. if i remove this line the program only prints one.
+		cout<<memo[i]<<endl; // idk what is happening. if i remove this line the program only prints one.
 	}
 
 	cout<<fib(n,memo)<<endl;
