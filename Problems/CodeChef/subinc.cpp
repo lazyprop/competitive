@@ -7,28 +7,30 @@ int main()
 	for (int x =0;x<t;x++)
 	{
 		int n; cin>>n;
-		int a[n];
+		int prev=0;
+		long long tmp=0,ans=0;
 		for (int i = 0;i<n;i++)
 		{
-			cin>>a[i];
-		}
-
-		int ans=0;
-		for (int i = 0; i<n;i++)
-		{
-			int cur = a[i], flag = 1;
-			for (int j = i; j<n;j++)
+			int a; cin>>a;
+			if (i==0)
 			{
-				if (a[j] < cur)
-				{
-					flag = 0;
-					break;
-				}
-				cur = a[j];
-				ans+=flag;
+				tmp+=1;
+				ans=tmp;
 			}
-			
-		
+			else
+			{
+				if (a>=prev)
+				{
+					tmp+=1;
+					ans+=tmp;
+				}
+				else
+				{
+					tmp=1;
+					ans+=tmp;
+				}
+			}
+			prev = a;
 		}
 		cout<<ans<<endl;
 	}
