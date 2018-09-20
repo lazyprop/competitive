@@ -1,3 +1,4 @@
+// bfs implementation for undirected acyclic graphs
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -43,12 +44,9 @@ int main()
 
 					discovered[v-1] = 1;
 					temp.push_back(v);
-					//cout<<v<<" ";
 				}
 			}
 		}
-		//cout<<endl;
-		
 		L.clear();
 		for (int i = 0,n=temp.size();i<n;i++)
 		{
@@ -58,7 +56,6 @@ int main()
 		{
 			count++;
 		}
-		//cout<<L.size()<<endl;
 	}
 	cout<<count<<endl;
 
