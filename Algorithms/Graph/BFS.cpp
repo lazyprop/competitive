@@ -29,7 +29,7 @@ int main()
 		discovered[i] = 0;
 	}
 	discovered[s-1] = 1;
-
+	int flag=0;
 	vector<int> L = {s};
 	while (L.size() > 0)
 	{
@@ -45,6 +45,16 @@ int main()
 					discovered[v-1] = 1;
 					temp.push_back(v);
 				}
+				if (v==t)
+				{
+					flag=1;
+					break;
+				}
+
+			}
+			if (flag==1)
+			{
+				break;
 			}
 		}
 		L.clear();
@@ -52,10 +62,15 @@ int main()
 		{
 			L.push_back(temp[i]);
 		}
-		if (temp.size() > 0)
+		if (temp.size() > 0 )
 		{
 			count++;
 		}
+		if (flag==1)
+		{
+			break;
+		}
+
 	}
 	cout<<count<<endl;
 
