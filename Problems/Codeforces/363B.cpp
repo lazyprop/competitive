@@ -12,19 +12,28 @@ int main()
 		if (sum>0)
 		{
 			sum[i]+= arr[i] + sum[i-1];
-			cout<<sum[i]<<" ";
+			//cout<<sum[i]<<" ";
 		}
 	}
-	cout<<endl;
+	//cout<<endl;
 	
 	int m = INT_MAX, index=0;
 	for (int i = k-1; i<n; i++)
 	{
-		cout<<arr[i]<<" "<<arr[i-k+1]<<endl;
-		cout<<sum[i]-sum[i-k+1]<<endl;
-		if (sum[i]-sum[i-k+1]<m)
+		//cout<<arr[i]<<" "<<arr[i-k+1]<<endl;
+		//cout<<sum[i]-sum[i-k+1]<<endl;
+		if (k==1)
 		{
-			m=sum[i]-sum[i-k+1];
+			if (arr[i]<m)
+			{
+				m = arr[i];
+				index=i;
+			}
+		}
+		else if (sum[i]-sum[i-k+1]<m)
+		{
+			if(k==2) m=sum[i]-sum[i-k];
+			else m=sum[i]-sum[i-k+1];
 			index=i-k+1;
 		}
 	}
