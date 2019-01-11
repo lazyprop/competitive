@@ -1,41 +1,43 @@
 #include<bits/stdc++.h>
+
 using namespace std;
+
+#define make_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
+#define make_dir_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1);}
+#define make_weighted_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1];w[b-1][a-1]=w[a-1][b-1];G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
+#define make_weighted_dir_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1]; G[a-1].push_back(b-1);}
 
 int main()
 {
-	int n,k; cin>>n>>k;
-	int arr[n],sum[n+1];
-	memset(sum,0,sizeof(sum));
-	for (int i = 0; i<n; i++)
+	int t=1;
+	// cin>>t;
+	while (t--)
 	{
-		cin>>arr[i];
-		if (sum>0)
+		// code
+		int n,k; cin>>n>>k;
+		int arr[n], sum[n+1];
+
+		for (int i = 0; i<n; i++)
 		{
-			sum[i]+= arr[i] + sum[i-1];
-			//cout<<sum[i]<<" ";
+			cin>>arr[i];
 		}
-	}
-	//cout<<endl;
-	
-	int m = INT_MAX, index=0;
-	for (int i = k-1; i<n; i++)
-	{
-		//cout<<arr[i]<<" "<<arr[i-k+1]<<endl;
-		//cout<<sum[i]-sum[i-k+1]<<endl;
-		if (k==1)
+		sum[0] = 0;
+		for (int i = 1; i<n+1; i++)
 		{
-			if (arr[i]<m)
+			sum[i] = arr[i-1] + sum[i-1];
+		}
+
+		int index = 0, m=INT_MAX;
+		for (int i=k; i<=n; i++)
+		{
+			int temp = sum[i] - sum[i-k];
+			if (temp < m)
 			{
-				m = arr[i];
-				index=i;
+				m = temp;
+				index = i-k+1;
 			}
 		}
-		else if (sum[i]-sum[i-k+1]<m)
-		{
-			if(k==2) m=sum[i]-sum[i-k];
-			else m=sum[i]-sum[i-k+1];
-			index=i-k+1;
-		}
+		cout<<index;
+		cout<<endl;	
 	}
-	cout<<index+1<<endl;
 }
