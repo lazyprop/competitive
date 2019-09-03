@@ -2,6 +2,7 @@
 #include<vector>
 #include<limits>
 #include<math.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
