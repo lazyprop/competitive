@@ -1,47 +1,53 @@
 #include<iostream>
-#include<algorithm>
+#include<vector>
+#include<limits>
+#include<math.h>
+#include<bits/stdc++.h>
+
 using namespace std;
 
-int search(long long a[], int n, long long  k,int i)
-{
-	int m = (n-1)/2;
-	//cout<<m<<endl;
-	if (m<=i)
-	{
-		return 0;
-	}
-	long long  tmp = a[m] - a[i];
-	if (tmp>=k)
-	{
-		return 1;
-	}
-	
-	else
-	{
-		search(a,m,k,i);
-	}
-}
+#define make_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
+#define make_dir_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1);}
+#define make_weighted_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1];w[b-1][a-1]=w[a-1][b-1];G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
+#define make_weighted_dir_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1]; G[a-1].push_back(b-1);}
 
 int main()
 {
-	int n; cin>>n;
-	long long k;cin>>k;
-	long long a[n],ans=0;
-
-	for (int i = 0;i<n;i++)
+	int t=1;
+	// cin>>t;
+	while (t--)
 	{
-		cin>>a[i];
-	}
-	sort(a,a+n);
+		// code
+		int n,k; cin>>n>>k;
+		int a[n];
+		int sum[n];
 
-	for (int i = 0;i<n;i++)
-	{
-		cout<<search(a,n,k,i)<<endl;
+		cin>>a[0];
+		
+		for (int i = 1; i<n; i++)
+		{
+			cin>>a[i];
+		}
+		sort (a,a+n);
+		sum[0] = a[0];
+		for (int i = 0; i<n; i++)
+		{
+			sum[i] = a[i] + sum[i-1];
+		}
+
+		int count= 0;
+		for (int i = 0; i<n; i++)
+		{
+			for (int j = i+1; j<n; j++)
+			{
+				if (a[j] - a[i] >= k)
+				{
+					count+=n-j;
+					break;
+				}
+			}
+		}
+		cout<<count;
+		cout<<endl;
 	}
-	cout<<ans<<endl;
 }
-
-
-
-
-
