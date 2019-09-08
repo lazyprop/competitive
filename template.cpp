@@ -14,11 +14,9 @@ using namespace std;
 int main()
 {
 	int t=1;
-	// cin>>t;
+	//cin>>t;
 	while (t--)
 	{
 		// code
-		
-		cout<<endl;	
 	}
 }
