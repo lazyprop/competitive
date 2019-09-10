@@ -18,29 +18,23 @@ int main()
 	while (t--)
 	{
 		// code
-		long long n; cin>>n;
-		long long a[n];
+		int n,m; cin>>n;
+		int a[n];
+		int a1 = 0, b1=0;
 		for (int i = 0; i<n; i++)
 		{
 			cin>>a[i];
+			a1 = max(a1, a[i]);
 		}
-
-		long long mn = INT_MAX, mx = 0;
-		for (int i = 0; i<n; i++)
+		cin>>m;
+		int b[m];
+		for (int i = 0; i<m; i++)
 		{
-			mn = min(mn, a[i]);
-			mx = max(mx, a[i]);
+			cin>>b[i];
+			b1 = max(b1, b[i]);
 		}
 
-		long long m1=0, m2=0;
-		for (int i = 0; i<n; i++)
-		{
-			if (a[i] == mn) m1++;
-			if (a[i] == mx) m2++;
-		}
+		cout<<a1<<" "<<b1<<endl;
 
-		if (mn == mx) cout<<0<<" "<<n* (n-1) / 2;
-		else cout<<mx-mn<<" "<<m1*m2;
-		cout<<endl;
 	}
 }
