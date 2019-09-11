@@ -13,9 +13,9 @@ using namespace std;
 
 int main()
 {
-	int t=1;
-	//cin>>t;
-	while (t--)
+	int Testcases=1;
+	//cin>>Testcases;
+	while (Testcases--)
 	{
 		// code
 	}
