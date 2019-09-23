@@ -1,3 +1,8 @@
 *.exe
 *.swp
 temp/
+a.out
+input.txt
+output.txt
+in.txt
+out.txt
