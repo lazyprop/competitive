@@ -19,33 +19,39 @@ int main()
 	{
 		// code
 		int n; cin>>n;
-		long long count= 0;
+		long long cost= 0;
 		int a[n];
 
-		int zero = 0, prod=1;
+		int k = 0, prod=1;
 		for (int i = 0; i<n; i++)
 		{
 			long long temp; cin>>temp;
 			if (temp < 0)
 			{
-				count += abs(temp) - 1;
+				if (temp != -1) cost += abs(temp) -1;
 				a[i] = -1;
 				prod*=-1;
 			}
-			if (temp > 0)
+			if (temp > 1)
 			{
-				count+= abs(temp) - 1;
+				if (temp != 1) cost+= abs(temp) - 1;
 				a[i] = 1;
 			}
 			if (temp == 0)
 			{
 				a[i] = 0;
-				zero++;
+				k++;
 			}
 		}
 
-		count+=zero;
-		if (prod == -1) count+=2;
-		cout<<count<<endl;
+		if (k > 0)
+		{
+			cost+= k;
+		}
+		if (k==0)
+		{
+			if (prod==-1) cost+= 2;
+		}
+		cout<<cost<<endl;
 	}
 }
