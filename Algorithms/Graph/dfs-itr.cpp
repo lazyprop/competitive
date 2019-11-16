@@ -7,24 +7,8 @@ using namespace std;
 
 const int maxN = 1000000;
 
-int seen[maxN];
 vector<int> adj[maxN];
-
-void dfs(int s)
-{
-	if (seen[s])
-	{
-		return;
-	}
-	seen[s] = 1;
-
-	// process node s
-
-	for (int i = 0, l = adj[s].size(); i<l; i++)
-	{
-		dfs(adj[s][i]);
-	}
-}
+int seen[maxN];
 
 int main()
 {
@@ -46,6 +30,26 @@ int main()
 			adj[a].push_back(b);
 		}
 
-		dfs(1);
+		stack<int> Q;
+		Q.push(1);
+
+		while (!Q.empty())
+		{
+			int s = Q.top();
+			Q.pop();
+
+			if (!seen[s])
+			{
+				seen[s] = 1;
+			}
+
+			for (int i = 0, l=adj[s].size(); i<l; i++)
+			{
+				if (!seen[adj[s][i]])
+				{
+					Q.push(adj[s][i]);
+				}
+			}
+		}
 	}
 }
