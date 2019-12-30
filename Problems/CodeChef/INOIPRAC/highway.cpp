@@ -1,22 +1,41 @@
-#include<iostream>
-#include<vector>
-#include<limits>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define make_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
-#define make_dir_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1);}
-#define make_weighted_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1];w[b-1][a-1]=w[a-1][b-1];G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
-#define make_weighted_dir_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1]; G[a-1].push_back(b-1);}
-
+const int mod = 20011;
 int main()
 {
-	int t=1;
-	// cin>>t;
-	while (t--)
+	// ifstream cin("in.txt");
+
+	int n,m,d; cin>>n>>m>>d;
+	int dp[n][m] = {};
+	for (int i = 0; i<n; i++)
 	{
-		// code
-		
-		cout<<endl;	
+		for (int j = 0; j<m; j++)
+		{
+			int x; cin>>x;
+			if (!i and !j) dp[i][j] = x;
+			if (x)
+			{
+				if (i) dp[i][j]+= dp[i-1][j];
+				if (j) dp[i][j]+= dp[i][j-1];
+
+				for (int k = 0; k < i-d; k++)
+				{
+					dp[i][j]-= dp[k][j];
+				}
+				for (int k = 0; k < j-d; k++)
+				{
+					dp[i][j]-= dp[i][k];
+				}
+
+				while (dp[i][j] < 0) dp[i][j]+= mod;
+				dp[i][j]%= mod;
+			}
+			// cout<<dp[i][j]<<" ";
+		}
+		// cout<<endl;
 	}
+	// cout<<endl;
+
+	cout<<(dp[n-1][m-1] + mod) % mod<<endl;
 }
