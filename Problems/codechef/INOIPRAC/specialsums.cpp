@@ -4,30 +4,40 @@ using namespace std;
 #define ll long long
 int main()
 {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+
+	// ifstream cin("in.txt");
+
 	int n; cin>>n;
-	int a[n], b[n];
-	for (int i = 0; i<n; i++)
+	ll a[n+1], b[n+1] = {};
+	
+	ll ans = -1e15;
+	
+	for (int i = 1; i <= n; i++)
 	{
 		cin>>a[i];
+		ans = max(ans, a[i]);
 	}
-	for (int i = 0; i<n; i++)
+
+	for (int i = 1; i <= n; i++)
 	{
 		cin>>b[i];
+		b[i]+= b[i-1];
 	}
 
-	pair<int,ll> dp[n];
-	dp[0] = make_pair(0,0);
-
-	for (int i = 1; i<n; i++)
+	ll diff = a[1] - b[1];
+	ll sum = a[1];
+	
+	for (int i = 2; i <= n; i++)
 	{
-		if (dp[i-1])
+		diff = max(diff, a[i-1] - b[i-1]);
+		sum = max(sum, a[i-1] + b[i-2]);
+
+		ans = max(ans, a[i] + diff + b[i-1]);
+		ans = max(ans, a[i] + sum + b[n] - b[i]);
 	}
 
-	ll ans = 0;
-	for (int i = 1; i<n-1; i++)
-	{
-		cout<<dp[i].first<<" "<<a[dp[i].second-1]<<endl;
-		ans = max(ans,dp[i].first + (ll) a[i+1] + (ll) a[dp[i].second-1]);
-	}
 	cout<<ans<<endl;
 }
