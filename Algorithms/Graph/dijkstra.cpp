@@ -1,59 +1,70 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
-#define make_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
-#define make_dir_graph(m,G) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b;G[a-1].push_back(b-1);}
-#define make_weighted_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1];w[b-1][a-1]=w[a-1][b-1];G[a-1].push_back(b-1); G[b-1].push_back(a-1);}
-#define make_weighted_dir_graph(m,G,w) for (int i = 0; i<m; i++) { int a,b; cin>>a>>b; cin>>w[a-1][b-1]; G[a-1].push_back(b-1);}
-
+#define ll long long
 int main()
 {
-	int t=1;
-	// cin>>t;
-	while (t--)
+	// ifstream cin("in.txt");
+
+	int n,m; cin>>n>>m;
+
+	vector<pair<int,int> > adj[n+1];
+
+	for (int i = 0; i < m; i++)
 	{
-		// code
-		int n,m; cin>>n>>m;
-		vector<int> G[n];
-		int W[n][n];
-		make_weighted_graph(m,G,W);
+		int u,v,w; cin>>u>>v>>w;
+		adj[u].push_back(make_pair(v,w));
+		adj[v].push_back(make_pair(u,w));
+	}
 
-		int src; cin>>src;
-		int dist[n],processed[n];
-		for (int i = 0; i<n; i++)
+	int x = 1; // source is 1
+	ll dist[n+1];
+	int done[n+1] = {}, prev[n+1] = {};
+	for (int i = 1; i <= n; i++) dist[i] = LLONG_MAX;
+
+	
+	priority_queue<pair<int,int>> Q;
+	Q.push(make_pair(0, x));
+	dist[x] = 0;
+
+	while (!Q.empty())
+	{
+		int s = Q.top().second;
+		Q.pop();
+		
+		if (done[s]) continue;
+		done[s] = 1;
+
+		for (auto u : adj[s])
 		{
-			dist[i] = 123456789;
-			processed[i] = 0;
-		}	
-		dist[src] = 0;
 
-		priority_queue<pair<int, int> > q;
-		q.push(make_pair(0,src));
-
-		while(!q.empty())
-		{
-			int u = q.top().second;
-			q.pop();
-			if (processed[u]) continue;
-			processed[u] = 1;
-
-			for (int i = 0; i<G[u].size(); i++)
+			int t = u.first, w = u.second;
+			if (dist[s] + w < dist[t])
 			{
-				int v = G[u][i];
-				int w = W[u][v];
-				if (dist[u]+w < dist[v])
-				{
-					dist[v] = dist[u] + w;
-					q.push(make_pair(-dist[v],v));
-				}
+				dist[t] = dist[s] + w;
+				prev[t] = s;
+				Q.push(make_pair(-dist[t], t));
 			}
 		}
-
-		for (int i = 0; i<n; i++)
-		{
-			cout<<dist[i]<<" ";
-		}
-		cout<<endl;	
 	}
+
+	if (dist[n] == LLONG_MAX)
+	{
+		cout<<-1<<endl;
+		return 0;
+	}
+
+	int end = n;
+	stack<int> path;
+	while (end)
+	{
+		path.push(end);
+		end = prev[end];
+	}
+	while (!path.empty())
+	{
+		cout<<path.top()<<" ";
+		path.pop();
+	}
+	cout<<endl;
 }
