@@ -4,23 +4,20 @@ using namespace std;
 const int maxn = 3 * pow(10,5) + 10;
 const int mod = 998244353;
 
-int modpow(int a, int b)
-{
-	int res = 1;
-	while (b--)
-	{
-		res*= a;
-		res%=mod;
-	}
-	return res;
-}
+int modpow[maxn+5];
 int main()
 {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
-	
+
 	// ifstream cin("in.txt");
+	modpow[0] = 1;
+	for (int i = 1; i <= maxn; i++)
+	{
+		modpow[i] = modpow[i-1]*2;
+		modpow[i]%= mod;
+	}
 
 	int T; cin>>T;
 	while (T--)
@@ -77,7 +74,7 @@ int main()
 				if (!bip) break;
 			}
 			if (!bip) break;
-			ans*= (modpow(2,a) + modpow(2,b)) % mod;
+			ans*= (modpow[2,a] + modpow[2,b]) % mod;
 			ans%= mod;
 		}
 		ans*= bip;
