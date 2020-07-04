@@ -1,4 +1,7 @@
-*
-
-!*.cpp
-!*.py
+*.exe
+*.swp
+temp/
+in
+out
+in.txt
+out.txt
