@@ -1,47 +1,50 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
-#define ull unsigned long long
+
 int main()
 {
-	//ifstream cin("in.txt");
-	//ofstream cout("out.txt");
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-	int n; cin>>n;
+    int n; cin>>n;
+    vector<int> adj[n+100];
 
-	string a[n];
-	for (int i = 0; i<n; i++)
-	{
-		string s; cin>>s;
-		string x = "";
-		int l = s.size();
-		sort(s.begin(), s.end());
+    for (int i = 0; i < n; i++)
+    {
+        string s; cin>>s;
+        for (int j = 0, l = s.size(); j < l; j++)
+        {
+            int c = n + s[j] - 'a';
+            adj[i].push_back(c);
+            adj[c].push_back(i);
+        }
+    }
 
-		x+= s[0];
-		for (int j = 1; j<l; j++)
-		{
-			while (s[j] == s[j-1]) j++;
-			x+= s[j];
-		}
-		a[i] = x;
-		cout<<x<<endl;
-	}
-
-	sort(a,a+n);
-	char prev = a[0][a[0].size()-1];
-	int ans = 1;
-	for (int i = 1; i<n; i++)
-	{
-		cout<<a[i]<<endl;
-		if (a[i][0] > prev)
-		{
-			ans++;
-		}
-		prev = a[i][a[i].size()-1];
-	}
-	cout<<ans<<endl;
+    int ans = 0, seen[n+100] = {};
+    for (int i = n; i < n+26; i++)
+    {
+        if (!seen[i] and !adj[i].empty())
+        {
+            stack<int> s;
+            seen[i] = 1;
+            s.push(i);
+            while (!s.empty())
+            {
+                int x = s.top(); s.pop();
+                for (auto y: adj[x])
+                {
+                    if (!seen[y])
+                    {
+                        s.push(y);
+                        seen[y] = 1;
+                    }
+                }
+            }
+            ans++;
+        }
+    }
+    printf("%d\n", ans);
 }
