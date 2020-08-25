@@ -17,7 +17,6 @@ int bfs()
     dist[0][1] = 0;
     seen[0][1] = 1;
     par[0][1] = 0;
-
     while (!Q.empty())
     {
         int x = Q.front().first, p = Q.front().second;
