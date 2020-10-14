@@ -1,57 +1,54 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
-	int n,m; cin>>n>>m;
-	vector<int> adj[n+1];
+using ll = long long;
+const int maxn = 1e5 + 3;
+int color[maxn];
 
-	for (int i = 0; i<m; i++)
-	{
-		int u,v; cin>>u>>v;
-		adj[u].push_back(v);
-		adj[v].push_back(u);
-	}
+bool bipartite_check(int n, vector<int> adj[]) {
+    memset(color, -1, sizeof(color));
+    queue<int> Q;
+    for (int i = 1; i <= n; i++) {
+        if (color[i] == -1) {
+            Q.push(i);
+            color[i] = 0;
+            while (!Q.empty()) {
+                int u = Q.front(); Q.pop();
+                for (auto v: adj[u]) {
+                    if (color[v] == -1) {
+                        Q.push(v);
+                        color[v] = color[u] ^ 1;
+                    } else {
+                        if (color[v] == color[u]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
 
-	int color[n+1] = {};
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-	int flag = 0;
+    int n, m; cin >> n >> m;
+    vector<int> adj[n+1];
+    while (m--) {
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
 
-	for (int x=1; x<=n; x++)
-	{
-		if (color[x]) continue;
-
-		// bfs
-		queue<int> Q;
-		Q.push(x);	
-		color[x] = 1;
-		while (!Q.empty())
-		{
-			int s = Q.front();
-			Q.pop();
-
-			for (int i = 0, l = adj[s].size(); i<l; i++)
-			{
-				int t = adj[s][i];
-				
-				if (!color[t])
-				{
-					color[t] = 3-color[s];
-					Q.push(t);
-				}
-				else
-				{
-					if (color[t] == color[s])
-					{
-						cout<<"IMPOSSIBLE\n";
-						return 0;
-					}
-				}
-			}
-		}
-	}
-	for (int i = 1; i<=n; i++)
-	{
-		cout<<color[i]<<" \n" [i==n];
-	}
+    if (bipartite_check(n, adj)) {
+        for (int i = 1; i <= n; i++) {
+            printf("%d ", color[i] + 1);
+        }
+        printf("\n");
+    } else {
+        printf("IMPOSSIBLE\n");
+    }
 }
