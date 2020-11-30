@@ -1,8 +1,5 @@
-*.exe
-*.swp
-temp/
-in
-out
-in.txt
-out.txt
-a.out
+*
+
+!*.cpp
+!*.py
+!*.txt
