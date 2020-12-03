@@ -1,83 +1,79 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define ull unsigned long long
+using ll = long long;
 
-int main()
-{
-	//ifstream cin("in.txt");
-	//ofstream cout("out.txt");
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+struct env {
+    int w;
+    int h;
+    int ind;
+};
 
-	int Testcases=1;
-	//cin>>Testcases;
-	while (Testcases--)
-	{
-		// code
-		int n,wc,hc; cin>>n>>wc>>hc;
+bool fits(int w1, int h1, int w2, int h2) {
+    return (w1 < w2) & (h1 < h2);
+}
 
-		vector<int> a[n+1];
-		a[0].push_back(wc);
-		a[0].push_back(hc);
-		a[0].push_back(0);
+bool cmp(env e1, env e2) {
+    if (e1.w == e2.w) return e1.h < e2.h;
+    return e1.w < e2.w;
+}
 
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-		for (int i= 1; i<=n; i++)
-		{
-			int x,y; cin>>x>>y;
-			a[i].push_back(x);
-			a[i].push_back(y);
-			a[i].push_back(i);
-		}
+    int n, cw, ch; cin >> n >> cw >> ch;
 
-		sort(a,a+n+1);		
-		int ind = -1;
-		int dp[n+1] ={}, p[n+1]={};
+    vector<env> a;
+    for (int i = 0; i < n; i++) {
+        env e; cin >> e.w >> e.h;
+        e.ind = i + 1;
+        if (fits(cw, ch, e.w, e.h)) {
+            a.push_back(e);
+        }
+    }
+    n = a.size();
+    sort(a.begin(), a.end(), cmp);
 
-		int huge=0;
-		for (int i = 1; i<=n; i++)
-		{
-			if (wc < a[i][0] and hc < a[i][1])
-			{
-				dp[i] = 1;
-				int large = 0;
-				for (int j = 0; j<i; j++)
-				{
-					if (a[j][0] < a[i][0] and a[j][1] < a[i][1] and dp[i] < dp[j]+1)
-					{
-						if (dp[j] > large)
-						{
-							large = dp[j];
-							p[i] = j;
-						}
-					}
-					dp[i] = large+1;
-				}
-				if (dp[i] > huge)
-				{
-					ind  = i;
-				}
-			}
-		}
-		cout<<dp[ind]<<endl;
+    int dp[n+1] = {}, prev[n+1] = {}, ans = 0;
 
-		stack<int> ans;
-		ans.push(a[ind-1][2]);
-		int x = p[ind-1];
-		while (x)
-		{
-			ans.push(a[x-1][2]);
-			x = p[x-1];
-		}
+    for (int i = 1; i <= n; i++) {
+        if (fits(cw, ch, a[i-1].w, a[i-1].h)) {
+            dp[i] = 1;
+            int big = 0;
+            for (int j = 1; j < i; j++) {
+                if (!fits(a[j-1].w, a[j-1].h, a[i-1].w, a[i-1].h)) {
+                    continue;
+                }
+                if (dp[j] > big) {
+                    big = dp[j];
+                    prev[i] = j;
+                }
+            }
+            dp[i] = big + 1;
+        }
+        if (dp[i] > dp[ans]) {
+            ans = i;
+        }
+    }
 
-		while (!ans.empty())
-		{
-			cout<<ans.top()<<" ";
-			ans.pop();
-		}
-		cout<<endl;
-	}
+    printf("%d\n", dp[ans]);
+
+    if (dp[ans] == 0) return 0;
+
+    int cur = prev[ans];
+    vector<int> sol;
+    sol.push_back(a[ans-1].ind);
+
+    while (cur) {
+        sol.push_back(a[cur-1].ind);
+        cur = prev[cur];
+    }
+
+    reverse(sol.begin(), sol.end());
+    for (auto u: sol) {
+        printf("%d ", u);
+    }
+    printf("\n");
 }
