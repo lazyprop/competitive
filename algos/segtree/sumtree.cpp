@@ -1,40 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-const int maxn = 8;
+typedef long long ll;
 
-int segtree[4*maxn + 2];
+const int maxn = 1e5+1;
 
-void build(int a[], int v, int tl, int tr) {
+int n;
+ll t[4*maxn];
+
+void build(int a[], int v=1, int tl=0, int tr=n-1) {
     if (tl == tr) {
-        segtree[v] = segtree[tl];
-        return;
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
     }
-    int tm = tl + (tr - tl) / 2;
-    build(a, v*2, tl, tm);
-    build(a, v*2 + 1, tm+1, tr);
-    segtree[v] = segtree[v*2] + segtree[v*2 + 1];
 }
 
-int sum(int v, int tl, int tr, int l, int r) {
-    if (l > r) {
-        return 0;
+ll sum(int l, int r, int v=1, int tl=0, int tr=n-1) {
+    if (l > r) return 0;
+    if (tl == l && tr == r) return t[v];
+
+    int tm = (tl + tr) / 2;
+    return sum(l, min(r, tm), v*2, tl, tm)
+        + sum(max(l, tm+1), r, v*2+1, tm+1, tr);
+}
+
+void update(int ind, int val, int v=1, int tl=0, int tr=n-1) {
+    if (tl == tr) t[v] = val;
+    else {
+        int tm = (tl + tr) / 2;
+        if (ind <= tm) {
+            update(ind, val, v*2, tl, tm);
+        } else {
+            update(ind, val, v*2+1, tm+1, tr);
+        }
+        t[v] = t[v*2] + t[v*2+1];
     }
-    if (l == tl and r == tr) {
-        return segtree[v];
-    }
-    int tm = tl + (tr - tl) / 2;
-    return sum(v*2, tl, tm, l, min(tm, r)) +
-        sum(v*2 + 1, tm+1, tr, max(tm, l), r);
 }
 
 int main() {
-    int n; cin >> n;
-    int a[n];
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    build(a, 1, 0, 
+    int m; cin >> n >> m;
+    int a[n];
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    build(a);
+
+    while (m--) {
+        int type, i, j; cin >> type >> i >> j;
+        if (type == 1) {
+            update(i, j);
+        } else {
+            printf("%lld\n", sum(i, j-1));
+        }
+    }
 }
