@@ -1,0 +1,3 @@
+#!/bin/sh
+make p1 &&./p1 < testdata/p1/$1.in &&
+/bin/cat testdata/p1/$1.out
