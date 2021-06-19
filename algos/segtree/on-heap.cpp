@@ -1,3 +1,6 @@
+// dynamic segtree implementation on the heap
+// utterly useles and very slow. do not use.
+
 #include <bits/stdc++.h>
 using namespace std;
 
